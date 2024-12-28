@@ -1,0 +1,30 @@
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="fullName">Full Name</label>
+    <input id="fullName" formControlName="fullName" />
+    <div *ngIf="isFieldInvalid('fullName')">Full Name is required</div>
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input id="email" formControlName="email" />
+    <div *ngIf="isFieldInvalid('email')">Valid Email is required</div>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input id="password" type="password" formControlName="password" />
+    <div *ngIf="isFieldInvalid('password')">Password is required (min 8 characters)</div>
+  </div>
+  <div>
+    <label for="confirmPassword">Confirm Password</label>
+    <input id="confirmPassword" type="password" formControlName="confirmPassword" />
+    <div *ngIf="isFieldInvalid('confirmPassword')">Passwords must match</div>
+  </div>
+  <div>
+    <label for="terms">
+      <input id="terms" type="checkbox" formControlName="terms" />
+      Accept Terms and Conditions
+    </label>
+    <div *ngIf="isFieldInvalid('terms')">You must accept the terms</div>
+  </div>
+  <button type="submit">Sign Up</button>
+</form>
