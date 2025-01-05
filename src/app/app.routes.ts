@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { SignupComponent } from './components/signup/signup.component';
-import { FormComponent } from './components/form/form.component';
-import { LoginComponent } from './components/login/login.component';
-import { ArticlePageComponent } from './features/article/article-page/article-page.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { FormComponent } from './pages/form/form.component';
+import { LoginComponent } from './pages/login/login.component';
+import { ArticlePageComponent } from './pages/article-page/article-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/signup', pathMatch: 'full' },

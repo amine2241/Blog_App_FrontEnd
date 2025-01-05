@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ArticlePageComponent } from './article-page.component';
 import { HttpClient } from '@angular/common/http';
-import { ArticleService } from '../services/article.service';
+import { ArticleService } from '../../services/article.service';
 describe('ArticlePageComponent', () => {
   let component: ArticlePageComponent;
   let fixture: ComponentFixture<ArticlePageComponent>;

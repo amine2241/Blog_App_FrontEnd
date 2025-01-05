@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ArticleService } from '../services/article.service';
-import { Article } from '../interfaces/article.interface';
+import { ArticleService } from '../../services/article.service';
+import { Article } from '../../interfaces/article.interface';
 @Component({
   selector: 'app-article-page',
   standalone: true,

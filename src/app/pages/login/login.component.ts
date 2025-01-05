@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -57,8 +57,7 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           console.log(this.loginForm);
           console.log('Login successful');
-          this.router.navigate(['/dashboard']);
-          this.isLoading = false;
+          window.location.href = '/article';
         },
         error: (error) => {
           console.log(this.loginForm);

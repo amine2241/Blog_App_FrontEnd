@@ -38,8 +38,7 @@ export class FormComponent {
     this.http.post(this.apiUrl, userData, options).subscribe({
       next: (response) => {
         console.log('Success:', response);
-        this.title = '';
-        this.description= '';
+        window.location.href='/article'
       },
       error: (error) => {
         console.error('Error:', error);

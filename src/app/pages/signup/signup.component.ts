@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { AuthService, UserRegistration } from '../../auth/auth.service';
+import { AuthService, UserRegistration } from '../../services/auth.service';
 
 
 
@@ -77,6 +77,7 @@ export class SignupComponent implements OnInit {
         next: (response) => {
           console.log('Registration successful', response);
           this.isLoading = false;
+          window.location.href = '/login';
         },
         error: (error) => {
           console.error('Registration failed', error);

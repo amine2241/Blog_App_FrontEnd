@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders,HttpClientModule } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
 
 
 export interface UserRegistration {
@@ -46,15 +46,27 @@ export class AuthService {
   }
 
   register(user: UserRegistration): Observable<RegistrationResponse> {
-    return this.http.post<RegistrationResponse>(
+    return this.http.post(
       `${this.apiUrl}/registration`,
       user,
-      { headers: this.headers }
+      { 
+        headers: this.headers,
+        responseType: 'text'
+      }
     ).pipe(
-      tap(response => console.log('Registration response:', response)),
+      map((response: any) => ({
+        success: true,
+        message: response
+      } as RegistrationResponse)),
+      tap((response: any) => {
+        console.log('Registration success:', response);
+      }),
       catchError(error => {
         console.error('Registration error:', error);
-        throw error;
+        return of({
+          success: false,
+          message: error.error || 'Registration failed'
+        } as RegistrationResponse);
       })
     );
   }
