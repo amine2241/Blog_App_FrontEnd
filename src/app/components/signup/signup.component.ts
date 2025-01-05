@@ -1,58 +1,89 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { AuthService, UserRegistration } from '../../auth/auth.service';
+
+
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   standalone: true,
   styleUrls: ['./signup.component.css'],
+  animations: [
+    trigger('fadeInUp', [
+      transition(':enter', [
+        style({ transform: 'translateY(20px)', opacity: 0 }),
+        animate('0.4s ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
+      ])
+    ])
+  ],
   imports: [CommonModule, ReactiveFormsModule]
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
+  showPassword = false;
+  isLoading = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.signupForm = this.fb.group({
-      fullName: ['', [Validators.required]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]],
-      terms: [false, [Validators.requiredTrue]]
-    }, {
-      validators: this.passwordMatchValidator
     });
   }
 
-  passwordMatchValidator(form: FormGroup) {
-    const password = form.get('password');
-    const confirmPassword = form.get('confirmPassword');
-
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      confirmPassword.setErrors({ passwordMismatch: true });
-    } else {
-      confirmPassword?.setErrors(null);
-    }
+  get passwordStrength(): number {
+    const password = this.signupForm.get('password')?.value || '';
+    let strength = 0;
+    
+    if (password.length >= 8) strength++;
+    if (/[A-Z]/.test(password) && /[a-z]/.test(password)) strength++;
+    if (/[0-9]/.test(password) && /[^A-Za-z0-9]/.test(password)) strength++;
+    
+    return strength;
   }
 
   isFieldInvalid(fieldName: string): boolean {
     const field = this.signupForm.get(fieldName);
     return field ? (field.invalid && (field.dirty || field.touched)) : false;
   }
-
+  
   onSubmit() {
-    if (this.signupForm.valid) {
-      console.log('Form submitted:', this.signupForm.value);
-      // Add your signup logic here
-    } else {
-      Object.keys(this.signupForm.controls).forEach(key => {
-        const control = this.signupForm.get(key);
-        if (control?.invalid) {
-          control.markAsTouched();
+    console.log('Form submission attempted');
+    console.log('Form valid:', this.signupForm.valid);
+    console.log('Form values:', this.signupForm.value);
+    
+      this.isLoading = true;
+      const userData: UserRegistration = {
+        firstName: this.signupForm.get('firstName')?.value,
+        lastName: this.signupForm.get('lastName')?.value,
+        username: this.signupForm.get('username')?.value,
+        email: this.signupForm.get('email')?.value,
+        password: this.signupForm.get('password')?.value
+      };
+  
+      console.log('Sending user data:', userData);
+      
+      this.authService.register(userData).subscribe({
+        next: (response) => {
+          console.log('Registration successful', response);
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Registration failed', error);
+          this.isLoading = false;
         }
       });
-    }
+    
+
   }
 }
