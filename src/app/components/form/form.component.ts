@@ -4,8 +4,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
 interface UserData {
-  firstName: string;
-  lastName: string;
+  title: string;
+  description: string;
 }
 
 @Component({
@@ -16,17 +16,19 @@ interface UserData {
   styleUrl: './form.component.css'
 })
 export class FormComponent {
-  firstName: string = '';
-  lastName: string = '';
-  private apiUrl = ' http://localhost:8080/user/testing'
+  title: string = '';
+  description: string = '';
+  private apiUrl = ' http://localhost:8080/Content/addContent'
 
   constructor(private http: HttpClient) {}
 
   onSubmit() {
     const userData: UserData = {
-      firstName: this.firstName,
-      lastName: this.lastName
+      title: this.title,
+      description: this.description
     };
+    console.log("User Data")
+    console.log(userData)
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const options = {
       headers: headers,
@@ -36,8 +38,8 @@ export class FormComponent {
     this.http.post(this.apiUrl, userData, options).subscribe({
       next: (response) => {
         console.log('Success:', response);
-        this.firstName = '';
-        this.lastName = '';
+        this.title = '';
+        this.description= '';
       },
       error: (error) => {
         console.error('Error:', error);

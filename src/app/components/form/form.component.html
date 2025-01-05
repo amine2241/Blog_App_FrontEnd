@@ -1,27 +1,140 @@
-<div class="container mt-4">
-    <form (ngSubmit)="onSubmit()">
-      <div class="mb-3">
-        <label for="firstName" class="form-label">First Name</label>
-        <input 
-          type="text" 
-          class="form-control" 
-          id="firstName" 
-          name="firstName" 
-          [(ngModel)]="firstName"
-          required>
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+  <div class="max-w-4xl mx-auto p-6">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <!-- Form Header -->
+      <div class="mb-8">
+        <h1 class="text-2xl font-bold text-gray-800">Create New Article</h1>
+        <p class="text-gray-600 mt-2">Share your knowledge through text, images, or video content</p>
       </div>
-      
-      <div class="mb-3">
-        <label for="lastName" class="form-label">Last Name</label>
-        <input 
-          type="text" 
-          class="form-control" 
-          id="lastName" 
-          name="lastName" 
-          [(ngModel)]="lastName"
-          required>
-      </div>
-  
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+
+      <!-- Article Form -->
+      <form class="space-y-6"  (ngSubmit)="onSubmit()">
+        <!-- Title -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Article Title</label>
+          <input 
+            type="text"
+            [(ngModel)]="title" 
+            id="title" 
+            name="title"
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter a descriptive title"
+          >
+        </div>
+
+        <!-- Content Type Selection -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Content Type</label>
+          <div class="grid grid-cols-3 gap-4">
+            <button type="button" class="flex flex-col items-center justify-center p-4 border-2 border-blue-500 rounded-lg bg-blue-50 hover:bg-blue-100">
+              <i class="fas fa-font text-2xl text-blue-500 mb-2"></i>
+              <span class="text-sm font-medium text-blue-700">Text</span>
+            </button>
+            <button type="button" class="flex flex-col items-center justify-center p-4 border-2 border-gray-200 rounded-lg hover:bg-gray-50">
+              <i class="fas fa-image text-2xl text-gray-400 mb-2"></i>
+              <span class="text-sm font-medium text-gray-600">Image</span>
+            </button>
+            <button type="button" class="flex flex-col items-center justify-center p-4 border-2 border-gray-200 rounded-lg hover:bg-gray-50">
+              <i class="fas fa-video text-2xl text-gray-400 mb-2"></i>
+              <span class="text-sm font-medium text-gray-600">Video</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Text Editor (shown when Text is selected) -->
+        <div class="border rounded-lg p-4">
+          <div class="flex items-center space-x-3 mb-4 border-b pb-3">
+            <button type="button" class="p-2 hover:bg-gray-100 rounded">
+              <i class="fas fa-bold text-gray-600"></i>
+            </button>
+            <button type="button" class="p-2 hover:bg-gray-100 rounded">
+              <i class="fas fa-italic text-gray-600"></i>
+            </button>
+            <button type="button" class="p-2 hover:bg-gray-100 rounded">
+              <i class="fas fa-list text-gray-600"></i>
+            </button>
+            <button type="button" class="p-2 hover:bg-gray-100 rounded">
+              <i class="fas fa-link text-gray-600"></i>
+            </button>
+          </div>
+          <textarea 
+            class="w-full h-48 p-2 border-0 focus:ring-0 resize-none"
+            placeholder="Write your article content here..."
+            [(ngModel)]="description" 
+            id="description" 
+            name="description" 
+          ></textarea>
+        </div>
+
+        <!-- File Upload (hidden by default, shown for Image/Video) -->
+        <div class="hidden">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Upload File</label>
+          <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+            <div class="flex flex-col items-center">
+              <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
+              <p class="text-gray-600 mb-2">Drag and drop your file here, or</p>
+              <button type="button" class="text-blue-500 hover:text-blue-600 font-medium">
+                Browse files
+              </button>
+              <input type="file" class="hidden">
+              <p class="text-sm text-gray-500 mt-2">Maximum file size: 10MB</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course Association -->
+        <div class="border rounded-lg p-6 bg-gray-50">
+          <h3 class="text-lg font-medium text-gray-800 mb-4">Course Association</h3>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <label class="flex items-center">
+                <input type="radio" name="courseAssociation" class="form-radio text-blue-600" checked>
+                <span class="ml-2 text-gray-700">Link to Course</span>
+              </label>
+              <select class="px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500">
+                <option>Select Course...</option>
+                <option>Mathematics 101</option>
+                <option>Physics Fundamentals</option>
+                <option>Introduction to Literature</option>
+              </select>
+            </div>
+            <div>
+              <label class="flex items-center">
+                <input type="radio" name="courseAssociation" class="form-radio text-blue-600">
+                <span class="ml-2 text-gray-700">General Article (Not Course Related)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <!-- <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+          <input 
+            type="text" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            placeholder="Add tags separated by commas"
+          >
+          <p class="text-sm text-gray-500 mt-1">Example: education, technology, mathematics</p>
+        </div> -->
+
+        <!-- Buttons -->
+        <div class="flex justify-end space-x-4 pt-6 border-t">
+          <button type="button" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+            Cancel
+          </button>
+          <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+            Publish Article
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
+</body>
+</html>

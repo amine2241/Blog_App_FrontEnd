@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+  <!-- Navbar -->
+  <nav class="bg-white shadow-lg">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center space-x-8">
+          <a href="#" class="flex items-center space-x-3">
+            <i class="fas fa-book-reader text-2xl text-blue-600"></i>
+            <span class="font-bold text-xl text-gray-800">TeacherHub</span>
+          </a>
+          <div class="hidden md:flex space-x-4">
+            <a href="#" class="text-gray-600 hover:text-blue-600">Dashboard</a>
+            <a href="#" class="text-gray-600 hover:text-blue-600">My Articles</a>
+            <a href="#" class="text-gray-600 hover:text-blue-600">Resources</a>
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center space-x-2">
+            <i class="fas fa-plus text-sm"></i>
+            <span>New Article</span>
+          </button>
+          <img src="/api/placeholder/32/32" alt="User avatar" class="w-8 h-8 rounded-full">
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Header Section -->
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-800">Latest Articles</h1>
+      <div class="flex space-x-4">
+        <select class="px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option>All Categories</option>
+          <option>Course Related</option>
+          <option>General</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Articles Grid -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Article Card 1 -->
+      <article class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Course Related</span>
+            <div class="flex space-x-2">
+              <button class="text-gray-400 hover:text-blue-600">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="text-gray-400 hover:text-red-600">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Modern Teaching Methods in Mathematics</h2>
+          <p class="text-gray-600 mb-4">Exploring innovative approaches to teaching mathematics in the digital age, incorporating technology and interactive learning methods...</p>
+          <div class="flex items-center justify-between text-sm text-gray-500">
+            <div class="flex items-center space-x-2">
+              <img src="/api/placeholder/24/24" alt="Author" class="w-6 h-6 rounded-full">
+              <span>Sarah Johnson</span>
+            </div>
+            <span>Dec 28, 2024</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article Card 2 -->
+      <article class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">General</span>
+            <div class="flex space-x-2">
+              <button class="text-gray-400 hover:text-blue-600">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="text-gray-400 hover:text-red-600">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Building a Positive Classroom Environment</h2>
+          <p class="text-gray-600 mb-4">Tips and strategies for creating an inclusive and supportive learning environment that promotes student engagement and success...</p>
+          <div class="flex items-center justify-between text-sm text-gray-500">
+            <div class="flex items-center space-x-2">
+              <img src="/api/placeholder/24/24" alt="Author" class="w-6 h-6 rounded-full">
+              <span>Michael Chen</span>
+            </div>
+            <span>Dec 27, 2024</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article Card 3 -->
+      <article class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Course Related</span>
+            <div class="flex space-x-2">
+              <button class="text-gray-400 hover:text-blue-600">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="text-gray-400 hover:text-red-600">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Digital Tools for Science Education</h2>
+          <p class="text-gray-600 mb-4">A comprehensive guide to the latest digital tools and resources for enhancing science education in the classroom...</p>
+          <div class="flex items-center justify-between text-sm text-gray-500">
+            <div class="flex items-center space-x-2">
+              <img src="/api/placeholder/24/24" alt="Author" class="w-6 h-6 rounded-full">
+              <span>Emily Torres</span>
+            </div>
+            <span>Dec 26, 2024</span>
+          </div>
+        </div>
+      </article>
+      <article *ngFor="let article of articles" class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="p-6">
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">{{article.title}}</h2>
+          <p class="text-gray-600 mb-4">{{article.description}}</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+</html>
