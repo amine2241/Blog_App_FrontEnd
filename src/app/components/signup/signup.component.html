@@ -1,30 +1,125 @@
-<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="fullName">Full Name</label>
-    <input id="fullName" formControlName="fullName" />
-    <div *ngIf="isFieldInvalid('fullName')">Full Name is required</div>
+<div class="signup-container">
+  <div class="signup-content" @fadeInUp>
+    <div class="left-panel">
+      <div class="brand">
+        <h1>Join Us</h1>
+        <p class="tagline">Start your journey with us today.</p>
+      </div>
+      <div class="features">
+        <div class="feature-item">
+          <span class="feature-icon">🚀</span>
+          <p>Quick and easy setup</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🛡️</span>
+          <p>Secure by default</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">💎</span>
+          <p>Premium features</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="form-header">
+          <h2>Create Account</h2>
+          <p>Already have an account? <a href="/login">Sign in</a></p>
+        </div>
+
+        <div class="form-group floating">
+          <input
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+            [class.filled]="signupForm.get('lastName')?.value"
+            placeholder=" "
+          >
+          <label for="lastName">Last Name</label>
+          <div class="error-message" *ngIf="isFieldInvalid('lastName')">
+            Please enter your Last name
+          </div>
+        </div>
+
+        <div class="form-group floating">
+          <input
+            id="firstName"
+            type="text"
+            formControlName="firstName"
+            [class.filled]="signupForm.get('firstName')?.value"
+            placeholder=" "
+          >
+          <label for="firstName">First Name</label>
+          <div class="error-message" *ngIf="isFieldInvalid('firstName')">
+            Please enter your First name
+          </div>
+        </div>
+
+        <div class="form-group floating">
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
+            [class.filled]="signupForm.get('username')?.value"
+            placeholder=" "
+          >
+          <label for="username">Username</label>
+          <div class="error-message" *ngIf="isFieldInvalid('username')">
+            Please enter your username
+          </div>
+        </div>
+
+        <div class="form-group floating">
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            [class.filled]="signupForm.get('email')?.value"
+            placeholder=" "
+          >
+          <label for="email">Email Address</label>
+          <div class="error-message" *ngIf="isFieldInvalid('email')">
+            Please enter a valid email address
+          </div>
+        </div>
+
+        <div class="form-group floating">
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            [class.filled]="signupForm.get('password')?.value"
+            placeholder=" "
+          >
+          <label for="password">Password</label>
+          <button 
+            type="button" 
+            class="toggle-password"
+            (click)="showPassword = !showPassword"
+          >
+            {{showPassword ? '🔓' : '🔒'}}
+          </button>
+          <div class="password-strength" *ngIf="signupForm.get('password')?.value">
+            <div 
+              class="strength-bar" 
+              [class.weak]="passwordStrength >= 1"
+              [class.medium]="passwordStrength >= 2"
+              [class.strong]="passwordStrength >= 3"
+            ></div>
+            <div class="strength-bar" [class.medium]="passwordStrength >= 2" [class.strong]="passwordStrength >= 3"></div>
+            <div class="strength-bar" [class.strong]="passwordStrength >= 3"></div>
+          </div>
+        </div>
+
+        <button 
+          type="submit" 
+          class="submit-btn" 
+          >
+          <span >Create Account</span>
+          <div class="loader" *ngIf="isLoading"></div>
+        </button>
+      </form>
+    </div>
   </div>
-  <div>
-    <label for="email">Email</label>
-    <input id="email" formControlName="email" />
-    <div *ngIf="isFieldInvalid('email')">Valid Email is required</div>
-  </div>
-  <div>
-    <label for="password">Password</label>
-    <input id="password" type="password" formControlName="password" />
-    <div *ngIf="isFieldInvalid('password')">Password is required (min 8 characters)</div>
-  </div>
-  <div>
-    <label for="confirmPassword">Confirm Password</label>
-    <input id="confirmPassword" type="password" formControlName="confirmPassword" />
-    <div *ngIf="isFieldInvalid('confirmPassword')">Passwords must match</div>
-  </div>
-  <div>
-    <label for="terms">
-      <input id="terms" type="checkbox" formControlName="terms" />
-      Accept Terms and Conditions
-    </label>
-    <div *ngIf="isFieldInvalid('terms')">You must accept the terms</div>
-  </div>
-  <button type="submit">Sign Up</button>
-</form>
+</div>
