@@ -10,10 +10,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SignupComponent,
-    LoginComponent,
-    FormComponent
+
   ],
   imports: [
     BrowserModule,
@@ -26,6 +23,6 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       useClass: AuthInterceptor,
       multi: true
     }],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
 export class AppModule { }
